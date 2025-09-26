@@ -43,7 +43,7 @@ const TestimonialsSection = () => {
         name: "Priyanka Gupta",
         rating: 5,
         review:
-          "The atmosphere at Trade Learnify Academy is very supportive and positive, making learning enjoyable. The teachers are excellent and teach practical strategies using backtested data. The flexible class timings make it convenient for everyone. Overall, it’s a great place to learn trading with a friendly and motivating environment. Highly recommended!",
+          "The atmosphere at Trade Learnify Academy is very supportive and positive, making learning enjoyable. The teachers are excellent and teach practical strategies using backtested data. The flexible class timings make it convenient for everyone. Overall, it's a great place to learn trading with a friendly and motivating environment. Highly recommended!",
         date: "3 month ago",
         location: "Nagpur",
       },
@@ -54,25 +54,6 @@ const TestimonialsSection = () => {
           "I joined here as a complete beginner in stock market but after completing their 6 months course offline now able to trade emotion less ,best institute in Nagpur Faculty is great , they follow feedback based system , faculties are always there to help you guide you",
         date: "3 weeks ago",
         location: "Nagpur",
-      },
-    ],
-    instagramComments: [
-      {
-        username: "@nagpur_trader",
-        comment:
-          "Attending offline classes in Nagpur was the best decision! Personal attention is amazing 🔥",
-        likes: 28,
-      },
-      {
-        username: "@local_investor",
-        comment:
-          "The classroom environment and peer learning in offline batches is incredible! 💯",
-        likes: 22,
-      },
-      {
-        username: "@nagpur_student",
-        comment: "Offline mentorship changed my trading game completely! 📈",
-        likes: 35,
       },
     ],
   };
@@ -124,26 +105,6 @@ const TestimonialsSection = () => {
           "Online learning with personal mentorship calls made all the difference. Highly recommended!",
         date: "1 month ago",
         location: "Bangalore",
-      },
-    ],
-    instagramComments: [
-      {
-        username: "@mumbai_trader_online",
-        comment:
-          "Online classes are so convenient! Can learn from home and still get personal attention 🏠📚",
-        likes: 31,
-      },
-      {
-        username: "@remote_learner",
-        comment:
-          "The online program quality is outstanding! Live sessions feel like classroom experience 💻✨",
-        likes: 26,
-      },
-      {
-        username: "@digital_trader",
-        comment:
-          "Online mentorship calls are game-changers! Personal guidance from anywhere 🌐",
-        likes: 29,
       },
     ],
   };
@@ -207,7 +168,9 @@ const TestimonialsSection = () => {
             {selectedProgram === "offline"
               ? "Offline Program"
               : "Online Program"}{" "}
-            Success Stories
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-500">
+              Success Stories
+            </span>
           </h3>
           <div className="grid grid-cols-5 gap-4">
             {currentTestimonials.videoTestimonials.map((video, index) => (
@@ -224,7 +187,7 @@ const TestimonialsSection = () => {
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                     <div className="w-12 h-12 bg-red-600/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <Play className="text-white ml-1" size={24} />
+                      <Play className="text-white ml-1" size={20} />
                     </div>
                   </div>
                 </div>
@@ -314,33 +277,6 @@ const TestimonialsSection = () => {
             ))}
           </div>
         </div>
-
-        {/* Instagram Comments
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Instagram Comments - {selectedProgram === 'offline' ? 'Offline Program' : 'Online Program'}
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {currentTestimonials.instagramComments.map((comment, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl p-6 border border-gray-200 hover:border-green-300 transition-all duration-300 shadow-sm hover:shadow-md"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-green-600 font-semibold text-sm">
-                    {comment.username}
-                  </h4>
-                  <span className="text-gray-500 text-xs">
-                    ❤️ {comment.likes}
-                  </span>
-                </div>
-                <p className="text-gray-700 leading-relaxed text-sm">
-                  {comment.comment}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div> */}
 
         <div className="text-center">
           <a
