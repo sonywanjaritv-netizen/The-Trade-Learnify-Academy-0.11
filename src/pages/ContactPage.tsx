@@ -284,12 +284,35 @@ const ContactPage = () => {
                     />
                   </div>
 
+                  {/* reCAPTCHA */}
+                  <div className="flex justify-center">
+                    <ReCAPTCHA
+                      sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                      onChange={setRecaptchaValue}
+                      onExpired={() => setRecaptchaValue(null)}
+                    />
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2"
+                    disabled={loading || !recaptchaValue}
+                    className={`w-full bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 ${
+                      loading || !recaptchaValue
+                        ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400 hover:transform-none"
+                        : ""
+                    }`}
                   >
-                    <Send size={20} />
-                    <span>Send Message</span>
+                    {loading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                        <span>Submitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send size={20} />
+                        <span>Send Message</span>
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
@@ -338,6 +361,38 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Popup Modal */}
+      {popup.show && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div
+            className={`bg-white rounded-2xl p-6 w-[90%] max-w-md shadow-lg text-center border ${
+              popup.type === "success" ? "border-green-300" : "border-red-300"
+            }`}
+          >
+            <div className="flex justify-center mb-4">
+              {popup.type === "success" ? (
+                <Send className="text-green-600" size={40} />
+              ) : (
+                <div className="text-red-600" style={{ fontSize: '40px' }}>⚠️</div>
+              )}
+            </div>
+            <h3
+              className={`text-lg font-semibold mb-2 ${
+                popup.type === "success" ? "text-green-700" : "text-red-700"
+              }`}
+            >
+              {popup.message}
+            </h3>
+            <button
+              onClick={() => setPopup({ ...popup, show: false })}
+              className="mt-4 px-6 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg transition-all duration-300"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
