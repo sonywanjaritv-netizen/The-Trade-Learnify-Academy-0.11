@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { MapPin, Phone, Mail, MessageCircle, Clock, Send } from "lucide-react";
 
 const ContactPage = () => {
@@ -8,14 +9,74 @@ const ContactPage = () => {
     city: "",
     message: "",
   });
+  
+  const [popup, setPopup] = useState<{
+    show: boolean;
+    message: string;
+    type: "success" | "error";
+  }>({
+    show: false,
+    message: "",
+    type: "success",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    // Reset form
-    setFormData({ name: "", phone: "", city: "", message: "" });
-    alert("Thank you for your inquiry! We will contact you soon.");
+    
+    if (!recaptchaValue) {
+      setPopup({
+        show: true,
+        message: "Please complete the reCAPTCHA verification.",
+        type: "error",
+      });
+      return;
+    }
+    
+    setLoading(true);
+
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbyyvqtQSfOB4lu51m7guPZuifhWyTvUXe6XFJ0G9gUROtTihfmuG3Nc1kpCPUmPu8G2/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            number: formData.phone,
+            city: formData.city,
+            message: formData.message,
+            recaptcha: recaptchaValue,
+            timestamp: new Date().toISOString(),
+            source: "Contact Form - Contact Page"
+          }),
+        }
+      );
+
+      setPopup({
+        show: true,
+        message:
+          "Your message has been received. Our team will contact you soon.",
+        type: "success",
+      });
+
+      setFormData({ name: "", phone: "", city: "", message: "" });
+      setRecaptchaValue(null);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setPopup({
+        show: true,
+        message: "There was an error submitting your form. Please try again.",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (

@@ -31,6 +31,16 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!recaptchaValue) {
+      setPopup({
+        show: true,
+        message: "Please complete the reCAPTCHA verification.",
+        type: "error",
+      });
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -42,7 +52,12 @@ const ContactSection = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            ...formData,
+            recaptcha: recaptchaValue,
+            timestamp: new Date().toISOString(),
+            source: "Contact Form - Home Page"
+          }),
         }
       );
 
@@ -54,6 +69,7 @@ const ContactSection = () => {
       });
 
       setFormData({ name: "", number: "", city: "", message: "" });
+      setRecaptchaValue(null);
     } catch (error) {
       console.error("Error submitting form:", error);
       setPopup({
@@ -257,11 +273,20 @@ const ContactSection = () => {
                 />
               </div>
 
+              {/* reCAPTCHA */}
+              <div className="flex justify-center">
+                <ReCAPTCHA
+                  sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                  onChange={setRecaptchaValue}
+                  onExpired={() => setRecaptchaValue(null)}
+                />
+              </div>
+
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !recaptchaValue}
                 className={`w-full px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 ${
-                  loading
+                  loading || !recaptchaValue
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-green-600 hover:bg-green-700 text-white hover:shadow-green-600/25 transform hover:scale-105"
                 }`}

@@ -192,19 +192,21 @@ const AcademyGallerySection = () => {
 
       {/* Image Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-          <div className="relative max-w-4xl max-h-[90vh] bg-white rounded-xl overflow-hidden">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4" onClick={closeModal}>
+          <div className="relative max-w-6xl max-h-[95vh] bg-white rounded-xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={closeModal}
               className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-200"
             >
               <X size={20} />
             </button>
-            <img
-              src={selectedImage}
-              alt="Gallery image"
-              className="w-full h-full object-contain"
-            />
+            <div className="flex items-center justify-center min-h-[50vh] max-h-[95vh]">
+              <img
+                src={selectedImage}
+                alt="Gallery image"
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
           </div>
         </div>
       )}
