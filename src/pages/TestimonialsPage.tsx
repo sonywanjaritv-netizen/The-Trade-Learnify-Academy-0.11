@@ -5,36 +5,29 @@ const TestimonialsPage = () => {
   const [selectedProgram, setSelectedProgram] = useState<"offline" | "online">(
     "offline"
   );
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   const offlineTestimonials = {
     videoTestimonials: [
       {
-        title: "Offline Classroom Experience - Life Changing",
-        thumbnail:
-          "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "4:15",
-        student: "Rajesh Kumar - Nagpur",
+        id: "wzgAmYuwAy0",
+        thumbnail: "https://img.youtube.com/vi/wzgAmYuwAy0/maxresdefault.jpg",
       },
       {
-        title: "Face-to-Face Learning Made All the Difference",
-        thumbnail:
-          "https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "3:50",
-        student: "Priya Sharma - Nagpur",
+        id: "TuXFL4IUwFM",
+        thumbnail: "https://img.youtube.com/vi/TuXFL4IUwFM/maxresdefault.jpg",
       },
       {
-        title: "Offline Mentorship Success Story",
-        thumbnail:
-          "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "5:25",
-        student: "Amit Patel - Nagpur",
+        id: "XVXJKW5-dsc",
+        thumbnail: "https://img.youtube.com/vi/XVXJKW5-dsc/maxresdefault.jpg",
       },
       {
-        title: "From Zero to Hero - Offline Program",
-        thumbnail:
-          "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "6:10",
-        student: "Sunita Joshi - Nagpur",
+        id: "M8W-gTm6kz8",
+        thumbnail: "https://img.youtube.com/vi/M8W-gTm6kz8/maxresdefault.jpg",
+      },
+      {
+        id: "2KV1NT9H6bs",
+        thumbnail: "https://img.youtube.com/vi/2KV1NT9H6bs/maxresdefault.jpg",
       },
     ],
     googleReviews: [
@@ -121,32 +114,24 @@ const TestimonialsPage = () => {
   const onlineTestimonials = {
     videoTestimonials: [
       {
-        title: "Online Learning Success from Mumbai",
-        thumbnail:
-          "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "3:30",
-        student: "Arjun Kapoor - Mumbai",
+        id: "XzJqXtkGh0w",
+        thumbnail: "https://img.youtube.com/vi/XzJqXtkGh0w/maxresdefault.jpg",
       },
       {
-        title: "Remote Trading Education Excellence",
-        thumbnail:
-          "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "4:45",
-        student: "Kavya Reddy - Bangalore",
+        id: "gqC_AfC3nKo",
+        thumbnail: "https://img.youtube.com/vi/gqC_AfC3nKo/maxresdefault.jpg",
       },
       {
-        title: "Online Program Transformed My Career",
-        thumbnail:
-          "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "5:10",
-        student: "Deepak Joshi - Delhi",
+        id: "wzgAmYuwAy0",
+        thumbnail: "https://img.youtube.com/vi/wzgAmYuwAy0/maxresdefault.jpg",
       },
       {
-        title: "Working Professional's Online Success",
-        thumbnail:
-          "https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=400",
-        duration: "4:30",
-        student: "Ritu Agarwal - Pune",
+        id: "TuXFL4IUwFM",
+        thumbnail: "https://img.youtube.com/vi/TuXFL4IUwFM/maxresdefault.jpg",
+      },
+      {
+        id: "XVXJKW5-dsc",
+        thumbnail: "https://img.youtube.com/vi/XVXJKW5-dsc/maxresdefault.jpg",
       },
     ],
     googleReviews: [
@@ -297,30 +282,24 @@ const TestimonialsPage = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {currentTestimonials.videoTestimonials.map((video, index) => (
               <div
                 key={index}
-                className="group relative bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+                className="group bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer hover:transform hover:-translate-y-1"
+                onClick={() => handleVideoClick(video.id)}
               >
-                <div className="relative">
+                <div className="relative aspect-[9/16]">
                   <img
                     src={video.thumbnail}
-                    alt={video.title}
-                    className="w-full h-48 object-cover"
+                    alt="YouTube Short"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <Play className="text-white" size={48} />
+                    <div className="w-16 h-16 bg-red-600/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Play className="text-white ml-1" size={24} />
+                    </div>
                   </div>
-                  <div className="absolute bottom-4 right-4 bg-black/80 text-white px-2 py-1 rounded text-sm">
-                    {video.duration}
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-gray-900 font-semibold mb-2">
-                    {video.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm">by {video.student}</p>
                 </div>
               </div>
             ))}
@@ -486,6 +465,30 @@ const TestimonialsPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="relative w-full max-w-4xl bg-white rounded-xl overflow-hidden">
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+            >
+              <X size={20} />
+            </button>
+            <div className="aspect-video">
+              <iframe
+                src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
+                title="Video Player"
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
